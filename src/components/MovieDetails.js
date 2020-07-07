@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import {Link} from "react-router-dom";
 export default function MovieDetails() {
-  const [MovieInfo, setMovieInfo] = useState([]);
+  const [movie, setMovieInfo] = useState([]);
 
   let movie_info = window.location.pathname;
   let id = movie_info.split("/");
@@ -15,8 +15,7 @@ export default function MovieDetails() {
       })
   }, [])
 
-  const MovieInfoArr=[];
-  MovieInfoArr.push(MovieInfo);
+  
   return (
     <div>
     <Header text="Movie Web App" />
@@ -24,7 +23,6 @@ export default function MovieDetails() {
     <div className="container">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <React.Fragment>
-      {MovieInfoArr.map(movie => (
         <React.Fragment key={movie.Title}>
         <div className="movie-card-container">
                   <div className="image-container">
@@ -49,7 +47,7 @@ export default function MovieDetails() {
                   </div>
               </div>
         </React.Fragment>
-    ))}
+    )}
   </React.Fragment>
     </div>
     </div>
