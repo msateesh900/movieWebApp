@@ -1,5 +1,5 @@
 # React Movie Web App 
-
+## checkout the Preview at https://moviewebappusinghooks.netlify.app/
 This app developed to search movies from the OMDB Movie API and check for the movie details
 
 # Installation
