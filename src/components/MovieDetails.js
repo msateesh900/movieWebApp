@@ -8,7 +8,7 @@ export default function MovieDetails() {
   let id = movie_info.split("/");
 
   useEffect(() => {
-    fetch(`http://www.omdbapi.com/?apikey=b9bd48a6&i=${id[1]}`)
+    fetch(`https://www.omdbapi.com/?apikey=b9bd48a6&i=${id[1]}`)
       .then(response => response.json())
       .then(data => {
         setMovieInfo(data); 
