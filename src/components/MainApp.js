@@ -12,34 +12,42 @@ const MainApp = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    axios.get(MOVIE_API_URL).then(jsonResponse => {
+    axios.get(MOVIE_API_URL).then((jsonResponse) => {
       dispatch({
         type: "SEARCH_MOVIES_SUCCESS",
-        payload: jsonResponse.data.Search
+        payload: jsonResponse.data.Search,
       });
     });
   }, []);
 
-  const search = searchValue => {
-    dispatch({
-      type: "SEARCH_MOVIES_REQUEST"
-    });
+  const search = (searchValue) => {
+    if (searchValue !== "") {
+      dispatch({
+        type: "SEARCH_MOVIES_REQUEST",
+      });
 
-    axios(`https://www.omdbapi.com/?s=${searchValue}&apikey=b9bd48a6`).then(
-      jsonResponse => {
-        if (jsonResponse.data.Response === "True") {
-          dispatch({
-            type: "SEARCH_MOVIES_SUCCESS",
-            payload: jsonResponse.data.Search
-          });
-        } else {
-          dispatch({
-            type: "SEARCH_MOVIES_FAILURE",
-            error: jsonResponse.data.Error
-          });
+      axios(`https://www.omdbapi.com/?s=${searchValue}&apikey=b9bd48a6`).then(
+        (jsonResponse) => {
+          console.log(jsonResponse.data);
+          if (jsonResponse.data.Response === "True") {
+            dispatch({
+              type: "SEARCH_MOVIES_SUCCESS",
+              payload: jsonResponse.data.Search,
+            });
+          } else {
+            dispatch({
+              type: "SEARCH_MOVIES_FAILURE",
+              error: jsonResponse.data.Error,
+            });
+          }
         }
-      }
-    );
+      );
+    } else {
+      dispatch({
+        type: "SEARCH_MOVIES_FAILURE",
+        error: "Please input text in search box",
+      });
+    }
   };
 
   const { movies, errorMessage, loading } = state;
@@ -59,7 +67,7 @@ const MainApp = () => {
     <div className="App">
       <div className="m-container">
         <Header text="Movie Web App" />
-             
+
         <Search search={search} />
 
         <p className="App-intro">List of few favorite movies</p>
